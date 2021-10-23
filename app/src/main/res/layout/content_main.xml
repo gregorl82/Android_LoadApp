@@ -13,20 +13,20 @@
         android:id="@+id/imageDownload"
         android:layout_width="0dp"
         android:layout_height="200dp"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_cloud_download_24"
-        android:background="@color/colorPrimaryDark"/>
+        app:srcCompat="@drawable/ic_cloud_download_24" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageDownload">
@@ -35,7 +35,7 @@
             android:id="@+id/glideRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/glide_radio_text"
             android:textSize="18sp" />
 
@@ -43,7 +43,7 @@
             android:id="@+id/loadappRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/loadapp_radio_text"
             android:textSize="18sp" />
 
@@ -51,7 +51,6 @@
             android:id="@+id/retrofitRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:text="@string/retrofit_radio_text"
             android:textSize="18sp" />
     </RadioGroup>
@@ -61,6 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
