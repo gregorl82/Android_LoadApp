@@ -6,7 +6,10 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
+import android.view.animation.LinearInterpolator
+import kotlinx.android.synthetic.main.content_main.view.*
 import kotlin.properties.Delegates
 
 class LoadingButton @JvmOverloads constructor(
@@ -14,12 +17,9 @@ class LoadingButton @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
     private var widthSize = 0
     private var heightSize = 0
-
-    private var progress = 0f
-
+    private var progressWidth = 0f
     private var buttonText = "DOWNLOAD"
-
-    private val valueAnimator = ValueAnimator()
+    private var valueAnimator = ValueAnimator()
 
     private val textPaint = Paint().apply {
         style = Paint.Style.FILL
@@ -32,9 +32,20 @@ class LoadingButton @JvmOverloads constructor(
         when (new) {
             ButtonState.Loading -> {
                 setButtonText(resources.getString(R.string.button_loading))
+                valueAnimator = ValueAnimator.ofFloat(0f, measuredWidth.toFloat()).apply {
+                    duration = 4000
+                    addUpdateListener {
+                        progressWidth = animatedValue as Float
+                        invalidate()
+                    }
+                    start()
+                }
+                custom_button.isEnabled = false
             }
             ButtonState.Completed -> {
-
+                valueAnimator.cancel()
+                resetProgress()
+                custom_button.isEnabled = true
             }
             ButtonState.Clicked -> {
                 // no-op
@@ -49,7 +60,18 @@ class LoadingButton @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawText(buttonText, width / 2.0f, height / 1.8f, textPaint)
+
+        val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            style = Paint.Style.FILL
+            color = Color.GREEN
+        }
+        canvas.drawRect(0.0f, 0.0f, progressWidth, heightSize.toFloat(), progressPaint)
+        canvas.drawText(
+            buttonText,
+            widthSize.toFloat() / 2.0f,
+            heightSize.toFloat() / 1.8f,
+            textPaint
+        )
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -66,7 +88,7 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     private fun resetProgress() {
-        progress = 0f
+        progressWidth = 0f
     }
 
     private fun setButtonText(text: String) {

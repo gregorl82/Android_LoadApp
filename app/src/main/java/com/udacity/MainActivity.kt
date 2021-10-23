@@ -56,17 +56,17 @@ class MainActivity : AppCompatActivity() {
 
             custom_button.setLoadingButtonState(ButtonState.Loading)
 
-            val request =
-                DownloadManager.Request(Uri.parse(selectedDownloadUrl))
-                    .setTitle(getString(R.string.app_name))
-                    .setDescription(getString(R.string.app_description))
-                    .setRequiresCharging(false)
-                    .setAllowedOverMetered(true)
-                    .setAllowedOverRoaming(true)
-
-            val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-            downloadID =
-                downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+//            val request =
+//                DownloadManager.Request(Uri.parse(selectedDownloadUrl))
+//                    .setTitle(getString(R.string.app_name))
+//                    .setDescription(getString(R.string.app_description))
+//                    .setRequiresCharging(false)
+//                    .setAllowedOverMetered(true)
+//                    .setAllowedOverRoaming(true)
+//
+//            val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+//            downloadID =
+//                downloadManager.enqueue(request)// enqueue puts the download request in the queue.
         } else {
             showToast(this)
             custom_button.setLoadingButtonState(ButtonState.Completed)
