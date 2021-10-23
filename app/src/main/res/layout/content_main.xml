@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:onClick="onRadioButtonClicked"
             android:text="@string/glide_radio_text"
             android:textSize="18sp" />
 
@@ -44,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:onClick="onRadioButtonClicked"
             android:text="@string/loadapp_radio_text"
             android:textSize="18sp" />
 
@@ -51,6 +53,7 @@
             android:id="@+id/retrofitRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
             android:text="@string/retrofit_radio_text"
             android:textSize="18sp" />
     </RadioGroup>

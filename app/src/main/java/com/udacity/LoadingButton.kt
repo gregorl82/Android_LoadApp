@@ -15,17 +15,31 @@ class LoadingButton @JvmOverloads constructor(
     private var widthSize = 0
     private var heightSize = 0
 
+    private var progress = 0f
+
+    private var buttonText = "DOWNLOAD"
+
     private val valueAnimator = ValueAnimator()
 
     private val textPaint = Paint().apply {
+        style = Paint.Style.FILL
         color = Color.WHITE
         textAlign = Paint.Align.CENTER
-        textSize = 40.0f
-        isFakeBoldText = true
+        textSize = 50.0f
     }
 
     private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
+        when (new) {
+            ButtonState.Loading -> {
+                setButtonText(resources.getString(R.string.button_loading))
+            }
+            ButtonState.Completed -> {
 
+            }
+            ButtonState.Clicked -> {
+                // no-op
+            }
+        }
     }
 
 
@@ -35,7 +49,7 @@ class LoadingButton @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawText("DOWNLOAD", width /2.0f, height / 1.8f, textPaint)
+        canvas.drawText(buttonText, width / 2.0f, height / 1.8f, textPaint)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -49,6 +63,20 @@ class LoadingButton @JvmOverloads constructor(
         widthSize = w
         heightSize = h
         setMeasuredDimension(w, h)
+    }
+
+    private fun resetProgress() {
+        progress = 0f
+    }
+
+    private fun setButtonText(text: String) {
+        this.buttonText = text
+        invalidate()
+        requestLayout()
+    }
+
+    fun setLoadingButtonState(state: ButtonState) {
+        buttonState = state
     }
 
 }
