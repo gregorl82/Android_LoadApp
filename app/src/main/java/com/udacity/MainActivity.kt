@@ -36,21 +36,16 @@ class MainActivity : AppCompatActivity() {
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
+        custom_button.setLoadingButtonState(ButtonState.Completed)
         custom_button.setOnClickListener {
-            if (selectedDownloadUrl != null) {
-                Log.i("MAIN_ACTIVITY", selectedDownloadUrl.toString())
-                download()
-            } else {
-                Toast.makeText(this, "Please select the file to download", Toast.LENGTH_SHORT)
-                    .show()
-            }
-
+            download()
         }
     }
 
     private val receiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+        override fun onReceive(context: Context?, intent: Intent) {
+            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            val action = intent.action
         }
     }
 
