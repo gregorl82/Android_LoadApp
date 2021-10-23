@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.core.content.withStyledAttributes
 import kotlinx.android.synthetic.main.content_main.view.*
 import kotlin.properties.Delegates
 
@@ -20,6 +21,18 @@ class LoadingButton @JvmOverloads constructor(
     private var progressWidth = 0f
     private var buttonText = "DOWNLOAD"
     private var valueAnimator = ValueAnimator()
+
+    private var progressColor = 0
+    private var buttonColor = 0
+    private var loadingCircleColor = 0
+
+    init {
+        context.theme.obtainStyledAttributes(attrs, R.styleable.LoadingButton, 0, 0).apply {
+            progressColor = getColor(R.styleable.LoadingButton_progressColor, 0)
+            buttonColor = getColor(R.styleable.LoadingButton_buttonColor, 0)
+            loadingCircleColor = getColor(R.styleable.LoadingButton_loadingCircleColor, 0)
+        }
+    }
 
     private val textPaint = Paint().apply {
         style = Paint.Style.FILL
@@ -53,19 +66,17 @@ class LoadingButton @JvmOverloads constructor(
         }
     }
 
-
-    init {
-    }
-
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
         val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.FILL
-            color = Color.GREEN
+            color = progressColor
         }
-        canvas.drawRect(0.0f, 0.0f, progressWidth, heightSize.toFloat(), progressPaint)
+        canvas.drawColor(buttonColor)
+        if (buttonState === ButtonState.Loading) {
+            canvas.drawRect(0.0f, 0.0f, progressWidth, heightSize.toFloat(), progressPaint)
+
+        }
         canvas.drawText(
             buttonText,
             widthSize.toFloat() / 2.0f,
@@ -100,5 +111,4 @@ class LoadingButton @JvmOverloads constructor(
     fun setLoadingButtonState(state: ButtonState) {
         buttonState = state
     }
-
 }
