@@ -50,7 +50,7 @@ class LoadingButton @JvmOverloads constructor(
         color = loadingCircleColor
     }
 
-    private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
+    private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { _, _, new ->
         when (new) {
             ButtonState.Loading -> {
                 setButtonText(resources.getString(R.string.button_loading))

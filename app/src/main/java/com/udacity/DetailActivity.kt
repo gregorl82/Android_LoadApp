@@ -22,10 +22,10 @@ class DetailActivity : AppCompatActivity() {
             finishAndRemoveTask()
         }
 
-        val file = intent.getStringExtra("fileName").toString()
-        val status = intent.getStringExtra("status").toString()
+        fileName = intent.getStringExtra("fileName").toString()
+        status = intent.getStringExtra("status").toString()
 
-        fileNameText.text = file
+        fileNameText.text = fileName
         statusText.text = status
     }
 
