@@ -4,10 +4,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
-import android.view.animation.LinearInterpolator
-import androidx.core.content.withStyledAttributes
 import kotlinx.android.synthetic.main.content_main.view.*
 import kotlin.properties.Delegates
 
@@ -16,9 +13,12 @@ class LoadingButton @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
     private var widthSize = 0
     private var heightSize = 0
+
     private var progress = 0.0f
-    private var buttonText = "DOWNLOAD"
+
+    private var buttonText = "Download"
     private var valueAnimator = ValueAnimator()
+
     private val textArea = Rect()
 
     private var progressColor = 0
@@ -57,6 +57,7 @@ class LoadingButton @JvmOverloads constructor(
             ButtonState.Completed -> {
                 valueAnimator.cancel()
                 resetProgress()
+                setButtonText("Download")
                 custom_button.isEnabled = true
             }
             ButtonState.Clicked -> {

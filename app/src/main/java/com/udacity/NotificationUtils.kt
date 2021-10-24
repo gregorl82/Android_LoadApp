@@ -1,6 +1,5 @@
 package com.udacity
 
-import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -28,6 +27,24 @@ fun NotificationManager.sendNotification(
         contentIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
     )
-    val action = NotificationCompat.Action.Builder(0, "Show Details", contentPendingIntent).build()
 
+    val action = NotificationCompat.Action.Builder(
+        R.drawable.ic_assistant_black_24dp,
+        applicationContext.getString(R.string.notification_button),
+        contentPendingIntent
+    ).build()
+
+    val builder = NotificationCompat.Builder(
+        applicationContext,
+        applicationContext.getString(R.string.channel_id)
+    )
+        .setSmallIcon(R.drawable.ic_assistant_black_24dp)
+        .setContentTitle(applicationContext.getString(R.string.notification_title))
+        .setContentIntent(contentPendingIntent)
+        .setAutoCancel(true)
+        .addAction(action)
+        .setContentText("$messageBody has downloaded")
+        .setPriority(NotificationCompat.PRIORITY_HIGH)
+
+    notify(NOTIFICATION_ID, builder.build())
 }
