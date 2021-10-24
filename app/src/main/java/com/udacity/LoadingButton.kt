@@ -2,9 +2,7 @@ package com.udacity
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -18,9 +16,10 @@ class LoadingButton @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
     private var widthSize = 0
     private var heightSize = 0
-    private var progressWidth = 0f
+    private var progress = 0.0f
     private var buttonText = "DOWNLOAD"
     private var valueAnimator = ValueAnimator()
+    private val textArea = Rect()
 
     private var progressColor = 0
     private var buttonColor = 0
@@ -45,10 +44,10 @@ class LoadingButton @JvmOverloads constructor(
         when (new) {
             ButtonState.Loading -> {
                 setButtonText(resources.getString(R.string.button_loading))
-                valueAnimator = ValueAnimator.ofFloat(0f, measuredWidth.toFloat()).apply {
+                valueAnimator = ValueAnimator.ofFloat(0.0f, 1.0f).apply {
                     duration = 4000
                     addUpdateListener {
-                        progressWidth = animatedValue as Float
+                        progress = animatedValue as Float
                         invalidate()
                     }
                     start()
@@ -68,19 +67,41 @@ class LoadingButton @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
+        textPaint.getTextBounds(buttonText, 0, buttonText.length, textArea)
+
         val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.FILL
             color = progressColor
         }
+
+        val loadingCirclePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            style = Paint.Style.FILL
+            color = loadingCircleColor
+        }
+
         canvas.drawColor(buttonColor)
+
         if (buttonState === ButtonState.Loading) {
+            val progressWidth = progress * widthSize.toFloat()
             canvas.drawRect(0.0f, 0.0f, progressWidth, heightSize.toFloat(), progressPaint)
 
+            val progressCircle = progress * 360f
+            canvas.drawArc(
+                widthSize / 2f + textArea.width() / 2,
+                heightSize / 2f - 35f,
+                widthSize / 2 + 70f + textArea.width() / 2,
+                heightSize / 2f + 35f,
+                0f,
+                progressCircle,
+                true,
+                loadingCirclePaint
+            )
         }
         canvas.drawText(
             buttonText,
             widthSize.toFloat() / 2.0f,
-            heightSize.toFloat() / 1.8f,
+            heightSize.toFloat() / 1.7f,
             textPaint
         )
     }
@@ -99,7 +120,7 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     private fun resetProgress() {
-        progressWidth = 0f
+        progress = 0.0f
     }
 
     private fun setButtonText(text: String) {
