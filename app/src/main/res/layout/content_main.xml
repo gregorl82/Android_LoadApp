@@ -11,9 +11,7 @@
 
     <ImageView
         android:id="@+id/imageDownload"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:background="@color/colorPrimaryDark"
+        style="@style/imageStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,52 +20,38 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="32dp"
+        style="@style/radioGroupStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageDownload">
 
         <RadioButton
             android:id="@+id/glideRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            style="@style/radioButtonText"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/glide_radio_text"
-            android:textSize="18sp" />
+            android:text="@string/glide_radio_text" />
 
         <RadioButton
             android:id="@+id/loadappRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            style="@style/radioButtonText"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/loadapp_radio_text"
-            android:textSize="18sp" />
+            android:text="@string/loadapp_radio_text" />
 
         <RadioButton
             android:id="@+id/retrofitRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/radioButtonText"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/retrofit_radio_text"
-            android:textSize="18sp" />
+            android:text="@string/retrofit_radio_text" />
     </RadioGroup>
 
     <com.udacity.LoadingButton
         android:id="@+id/custom_button"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_margin="20dp"
+        style="@style/customButtonStyle"
         app:buttonColor="@color/colorPrimary"
+        app:loadingCircleColor="@color/colorAccent"
+        app:progressColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:loadingCircleColor="@color/colorAccent"
-        app:progressColor="@color/colorPrimaryDark" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

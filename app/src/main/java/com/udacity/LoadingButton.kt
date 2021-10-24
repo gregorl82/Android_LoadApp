@@ -40,6 +40,16 @@ class LoadingButton @JvmOverloads constructor(
         textSize = 50.0f
     }
 
+    private val progressBarPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+        color = progressColor
+    }
+
+    private val loadingCirclePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+        color = loadingCircleColor
+    }
+
     private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
         when (new) {
             ButtonState.Loading -> {
@@ -73,21 +83,11 @@ class LoadingButton @JvmOverloads constructor(
 
         textPaint.getTextBounds(buttonText, 0, buttonText.length, textArea)
 
-        val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            style = Paint.Style.FILL
-            color = progressColor
-        }
-
-        val loadingCirclePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            style = Paint.Style.FILL
-            color = loadingCircleColor
-        }
-
         canvas.drawColor(buttonColor)
 
         if (buttonState === ButtonState.Loading) {
             val progressWidth = progress * widthSize.toFloat()
-            canvas.drawRect(0.0f, 0.0f, progressWidth, heightSize.toFloat(), progressPaint)
+            canvas.drawRect(0.0f, 0.0f, progressWidth, heightSize.toFloat(), progressBarPaint)
 
             val progressCircle = progress * 360f
             canvas.drawArc(
